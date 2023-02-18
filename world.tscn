@@ -12,6 +12,7 @@
 tonemap_mode = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_ok5ri"]
+size = Vector3(1, 2, 0.293)
 
 [sub_resource type="QuadMesh" id="QuadMesh_0djq8"]
 
@@ -48,177 +49,192 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -4, 0)
 operation = 2
 size = Vector3(8, 6, 6)
 
-[node name="PanelIntro" parent="." instance=ExtResource("3_4e1ub")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, -1.9, 10)
-
-[node name="Sprite3D" parent="PanelIntro" index="1"]
-visible = false
-
-[node name="Text" parent="PanelIntro" index="2"]
-text = "WELCOME TO GODOT 4!
-
-This guided tour will teach you the basics of working with 3D in Godot."
-
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10.1, -4.80825e-08)
 light_energy = 4.0
 shadow_enabled = true
 omni_range = 50.0
 
-[node name="MeshTuto" type="Node3D" parent="."]
+[node name="PanelIntro" parent="." instance=ExtResource("3_4e1ub")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, 0.1, 14)
+
+[node name="Sprite3D" parent="PanelIntro" index="1"]
+visible = false
+
+[node name="Text" parent="PanelIntro" index="2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.200002, 3.2, -1.8)
+text = "WELCOME TO GODOT 4!
+
+This interactive tutoriel will teach you the basics of working with 3D in Godot.
+
+It is intended to be used alonside the editor, so please click on the objects in the editor to check how it's done.
+
+Have fun!"
+
+[node name="TutoMesh" type="Node3D" parent="."]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -1, -2, 2)
 
-[node name="PanelMesh" parent="MeshTuto" instance=ExtResource("3_4e1ub")]
+[node name="PanelMesh" parent="TutoMesh" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, -1.19209e-07)
 
-[node name="Sprite3D" parent="MeshTuto/PanelMesh" index="1"]
+[node name="Panel2" parent="TutoMesh/PanelMesh/Geometry" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+
+[node name="Sprite3D" parent="TutoMesh/PanelMesh" index="1"]
 texture = ExtResource("4_nxeen")
 
-[node name="NodeLabel" parent="MeshTuto/PanelMesh/Sprite3D" index="0"]
+[node name="NodeLabel" parent="TutoMesh/PanelMesh/Sprite3D" index="0"]
 text = "Mesh3D"
 
-[node name="Text" parent="MeshTuto/PanelMesh" index="2"]
-transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, 3.8, 4.7, -1.8)
+[node name="Text" parent="TutoMesh/PanelMesh" index="2"]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
 text = "3D objects are stored in Mesh3D resources. Specialized Mesh3D allow to build simple meshes, like BoxMesh, CapsuleMesh and SphereMesh. More complex meshes need to be imported from 3D applications, in GLTF format preferably."
 width = 680.0
 
-[node name="MeshBox" type="MeshInstance3D" parent="MeshTuto"]
-transform = Transform3D(0.969245, 0, 0.241261, 0, 1, 0, -0.241261, 0, 0.969245, 4, 3.51627, -3)
+[node name="MeshBox" type="MeshInstance3D" parent="TutoMesh"]
+transform = Transform3D(-0.491988, 0, -0.868736, 0, 1, 0, 0.868736, 0, -0.491988, 4, 3.95675, -3)
 mesh = SubResource("BoxMesh_ok5ri")
 
-[node name="MeshQuad" type="MeshInstance3D" parent="MeshTuto"]
-transform = Transform3D(0.903806, 0, -0.427209, 0, 1, 0, 0.427209, 0, 0.903806, 4, 3.51627, 6)
+[node name="MeshQuad" type="MeshInstance3D" parent="TutoMesh"]
+transform = Transform3D(-0.741952, 0, -0.670716, 0, 1, 0, 0.670716, 0, -0.741952, 4, 3.55675, 6)
 mesh = SubResource("QuadMesh_0djq8")
 
-[node name="MeshSphere" type="MeshInstance3D" parent="MeshTuto"]
-transform = Transform3D(0.969245, 0, 0.241261, 0, 1, 0, -0.241261, 0, 0.969245, 4, 3.21627, 4)
+[node name="MeshSphere" type="MeshInstance3D" parent="TutoMesh"]
+transform = Transform3D(-0.491988, 0, -0.868736, 0, 1, 0, 0.868736, 0, -0.491988, 4, 3.25675, 4)
 mesh = SubResource("SphereMesh_bgh5i")
 
-[node name="MeshCapsule" type="MeshInstance3D" parent="MeshTuto"]
-transform = Transform3D(-0.933804, 0, 0.35443, 0, 1, 0, -0.35443, 0, -0.933804, 3.99999, 3.71627, -5)
+[node name="MeshCapsule" type="MeshInstance3D" parent="TutoMesh"]
+transform = Transform3D(0.899489, 0, 0.433161, 0, 1, 0, -0.433161, 0, 0.899489, 3.99999, 3.75675, -5)
 mesh = SubResource("CapsuleMesh_cdvw5")
 
-[node name="DisplayCube" parent="MeshTuto" instance=ExtResource("5_qcw75")]
+[node name="DisplayCube" parent="TutoMesh" instance=ExtResource("5_qcw75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -3)
 
-[node name="Node3D" parent="MeshTuto/DisplayCube" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+[node name="Node3D" parent="TutoMesh/DisplayCube" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
-[node name="ItemSpot" parent="MeshTuto/DisplayCube/Node3D" index="0"]
-transform = Transform3D(0.969245, 0, 0.241261, 0, 1, 0, -0.241261, 0, 0.969245, 0, 0.116268, 0)
+[node name="ItemSpot" parent="TutoMesh/DisplayCube/Node3D" index="0"]
+transform = Transform3D(-0.491988, 0, -0.868736, 0, 1, 0, 0.868736, 0, -0.491988, 0, 0.156752, 0)
 remote_path = NodePath("../../../MeshBox")
 
-[node name="DisplayQuad" parent="MeshTuto" instance=ExtResource("5_qcw75")]
+[node name="DisplayQuad" parent="TutoMesh" instance=ExtResource("5_qcw75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 6)
 
-[node name="Node3D" parent="MeshTuto/DisplayQuad" index="0"]
+[node name="Node3D" parent="TutoMesh/DisplayQuad" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 
-[node name="ItemSpot" parent="MeshTuto/DisplayQuad/Node3D" index="0"]
-transform = Transform3D(0.903806, 0, -0.427209, 0, 1, 0, 0.427209, 0, 0.903806, 0, 0.116268, 0)
+[node name="ItemSpot" parent="TutoMesh/DisplayQuad/Node3D" index="0"]
+transform = Transform3D(-0.741952, 0, -0.670716, 0, 1, 0, 0.670716, 0, -0.741952, 0, 0.156752, 0)
 remote_path = NodePath("../../../MeshQuad")
 rotation_speed = 1.718
 
-[node name="DisplaySphere" parent="MeshTuto" instance=ExtResource("5_qcw75")]
+[node name="DisplaySphere" parent="TutoMesh" instance=ExtResource("5_qcw75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 4)
 
-[node name="ItemSpot" parent="MeshTuto/DisplaySphere/Node3D" index="0"]
-transform = Transform3D(0.969245, 0, 0.241261, 0, 1, 0, -0.241261, 0, 0.969245, 0, 0.116268, 0)
+[node name="ItemSpot" parent="TutoMesh/DisplaySphere/Node3D" index="0"]
+transform = Transform3D(-0.491988, 0, -0.868736, 0, 1, 0, 0.868736, 0, -0.491988, 0, 0.156752, 0)
 remote_path = NodePath("../../../MeshSphere")
 
-[node name="DisplayCapsule" parent="MeshTuto" instance=ExtResource("5_qcw75")]
+[node name="DisplayCapsule" parent="TutoMesh" instance=ExtResource("5_qcw75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.99999, 3, -5)
 
-[node name="Node3D" parent="MeshTuto/DisplayCapsule" index="0"]
+[node name="Node3D" parent="TutoMesh/DisplayCapsule" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
-[node name="ItemSpot" parent="MeshTuto/DisplayCapsule/Node3D" index="0"]
-transform = Transform3D(-0.933804, 0, 0.35443, 0, 1, 0, -0.35443, 0, -0.933804, 0, 0.116268, 0)
+[node name="ItemSpot" parent="TutoMesh/DisplayCapsule/Node3D" index="0"]
+transform = Transform3D(0.899489, 0, 0.433161, 0, 1, 0, -0.433161, 0, 0.899489, 0, 0.156752, 0)
 remote_path = NodePath("../../../MeshCapsule")
 
-[node name="MeshInstanceTuto" type="Node3D" parent="."]
+[node name="TutoNode3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 21, 0, -12)
+
+[node name="PanelNode3D" parent="TutoNode3D" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="Panel2" parent="TutoNode3D/PanelNode3D/Geometry" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+
+[node name="Sprite3D" parent="TutoNode3D/PanelNode3D" index="1"]
+texture = ExtResource("7_5s555")
+
+[node name="NodeLabel" parent="TutoNode3D/PanelNode3D/Sprite3D" index="0"]
+text = "Node3D"
+
+[node name="Text" parent="TutoNode3D/PanelNode3D" index="2"]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
+text = "The basic 3d node, it allows to group nodes and position them in 3D space. The position of the 3D node will determine the centre of rotation of all the children, so it can be used as a pivot point."
+
+[node name="TutoMeshInstance" type="Node3D" parent="."]
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 15, -2, -7)
 
-[node name="Node3D" type="Node3D" parent="MeshInstanceTuto"]
+[node name="Node3D" type="Node3D" parent="TutoMeshInstance"]
 
-[node name="Node3D" type="Node3D" parent="MeshInstanceTuto/Node3D"]
+[node name="Node3D" type="Node3D" parent="TutoMeshInstance/Node3D"]
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstanceTuto/Node3D/Node3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D"]
 transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 3.49623, 2.5, -5.16403)
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="MeshInstanceTuto/Node3D/Node3D"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D"]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 3.08725, 2.5, -3.79435)
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="MeshInstanceTuto/Node3D/Node3D"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D"]
 transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 2.99759, 3.5, -4.61886)
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstanceTuto/Node3D/Node3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D"]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 2.12132, 2.5, -4.94975)
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="Node3D2" type="Node3D" parent="MeshInstanceTuto/Node3D"]
+[node name="Node3D2" type="Node3D" parent="TutoMeshInstance/Node3D"]
 transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 1.5, 0.0999999, 2.7)
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="MeshInstanceTuto/Node3D/Node3D2"]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D2"]
 transform = Transform3D(-1.47224, 0, -0.85, 0, 1.7, 0, 0.85, 0, -1.47224, 3.21815, 2.825, 1.06964)
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="MeshInstanceTuto/Node3D/Node3D2"]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D2"]
 transform = Transform3D(-1.20208, 0, -1.20208, 0, 1.7, 0, 1.20208, 0, -1.20208, 1.4518, 2.825, 2.73851)
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="MeshInstanceTuto/Node3D/Node3D2"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D2"]
 transform = Transform3D(1.19209e-07, 0, 1.7, 0, 1.7, 0, -1.7, 0, 1.19209e-07, 2.02063, 4.525, 1.44843)
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="MeshInstanceTuto/Node3D/Node3D2"]
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D2"]
 transform = Transform3D(0.439992, 0, -1.64207, 0, 1.7, 0, 1.64207, 0, 0.439992, 1.0118, 2.825, 0.216446)
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="PanelMesh" parent="MeshInstanceTuto" instance=ExtResource("3_4e1ub")]
+[node name="PanelMeshInstance" parent="TutoMeshInstance" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 2)
 
-[node name="Sprite3D" parent="MeshInstanceTuto/PanelMesh" index="1"]
+[node name="Sprite3D" parent="TutoMeshInstance/PanelMeshInstance" index="1"]
 texture = ExtResource("4_5tg15")
 
-[node name="NodeLabel" parent="MeshInstanceTuto/PanelMesh/Sprite3D" index="0"]
+[node name="NodeLabel" parent="TutoMeshInstance/PanelMeshInstance/Sprite3D" index="0"]
 text = "MeshInstance3D"
 
-[node name="Text" parent="MeshInstanceTuto/PanelMesh" index="2"]
-transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, 3.8, 4.7, -1.8)
+[node name="Text" parent="TutoMeshInstance/PanelMeshInstance" index="2"]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
 text = "To display a Mesh3D in the world, it needs to be assigned to a MeshInstance3D node that sets its position, rotation and scale in the world.
 
 Note that a mesh instance alone is only visual and has no collision."
 width = 680.0
 
-[node name="PanelNode3D" parent="MeshInstanceTuto" instance=ExtResource("3_4e1ub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, 1)
-
-[node name="Sprite3D" parent="MeshInstanceTuto/PanelNode3D" index="1"]
-texture = ExtResource("7_5s555")
-
-[node name="NodeLabel" parent="MeshInstanceTuto/PanelNode3D/Sprite3D" index="0"]
-text = "Node3D"
-
-[node name="Text" parent="MeshInstanceTuto/PanelNode3D" index="2"]
-transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, 3.8, 4.7, -1.8)
-text = "The basic 3d node, it allows to group nodes and position them in 3D space. The position of the 3D node will determine the centre of rotation of all the children, so it can be used as a pivot point."
-width = 680.0
-
 [editable path="PanelIntro"]
-[editable path="MeshTuto/PanelMesh"]
-[editable path="MeshTuto/DisplayCube"]
-[editable path="MeshTuto/DisplayQuad"]
-[editable path="MeshTuto/DisplaySphere"]
-[editable path="MeshTuto/DisplayCapsule"]
-[editable path="MeshInstanceTuto/PanelMesh"]
-[editable path="MeshInstanceTuto/PanelNode3D"]
+[editable path="TutoMesh/PanelMesh"]
+[editable path="TutoMesh/DisplayCube"]
+[editable path="TutoMesh/DisplayQuad"]
+[editable path="TutoMesh/DisplaySphere"]
+[editable path="TutoMesh/DisplayCapsule"]
+[editable path="TutoNode3D/PanelNode3D"]
+[editable path="TutoMeshInstance/PanelMeshInstance"]
