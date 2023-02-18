@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1dunmt08i20m"]
+
+[ext_resource type="Texture2D" uid="uid://58mi1q0nuiqu" path="res://icons/StaticBody3D.svg" id="1_0erb5"]
+
+[node name="Sprite3D" type="Sprite3D"]
+transform = Transform3D(0, 0, -0.5, 0, 0.5, 0, 0.5, 0, 0, 4, 3, -3)
+texture = ExtResource("1_0erb5")
