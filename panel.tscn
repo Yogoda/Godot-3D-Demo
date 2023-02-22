@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dh0sp3gtjkejv"]
+[gd_scene load_steps=3 format=3 uid="uid://dh0sp3gtjkejv"]
 
 [ext_resource type="PackedScene" uid="uid://c1dunmt08i20m" path="res://sprite_3d.tscn" id="1_b8nhc"]
+[ext_resource type="Material" uid="uid://m846qfnc3a5y" path="res://materials/panel.material.res" id="1_plnfm"]
 
 [node name="Panel" type="Node3D"]
 
 [node name="Geometry" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("1_plnfm")
 use_collision = true
 size = Vector3(0.4, 2.8, 4)
 

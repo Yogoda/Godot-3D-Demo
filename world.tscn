@@ -1,15 +1,28 @@
-[gd_scene load_steps=14 format=3 uid="uid://bob8x3watosqd"]
+[gd_scene load_steps=26 format=3 uid="uid://cdcxvsduhku3q"]
 
 [ext_resource type="PackedScene" path="res://player.tscn" id="2_2mxhg"]
+[ext_resource type="Material" uid="uid://cjltxdxfuykm6" path="res://materials/blue.material.res" id="2_y7i87"]
 [ext_resource type="PackedScene" uid="uid://dh0sp3gtjkejv" path="res://panel.tscn" id="3_4e1ub"]
-[ext_resource type="Material" uid="uid://cjltxdxfuykm6" path="res://materials/platform.material.res" id="3_by6w8"]
 [ext_resource type="Texture2D" uid="uid://cohuvqrl6p07s" path="res://icons/MeshInstance3D.svg" id="4_5tg15"]
 [ext_resource type="Texture2D" uid="uid://dbivg4k8paf" path="res://icons/Mesh.svg" id="4_nxeen"]
 [ext_resource type="PackedScene" uid="uid://di11wmj7itpwa" path="res://item_display.tscn" id="5_qcw75"]
+[ext_resource type="Material" uid="uid://tubkjsnjt67h" path="res://materials/yellow.material.res" id="5_tb2ik"]
 [ext_resource type="Texture2D" uid="uid://mtfpkuxq6wo0" path="res://icons/Node3D.svg" id="7_5s555"]
+[ext_resource type="Material" uid="uid://b4jgfelb3xqdf" path="res://materials/red.material.res" id="8_8amnq"]
+[ext_resource type="Script" path="res://scripts/rotator.gd" id="8_32grd"]
+[ext_resource type="Material" uid="uid://dakmqh0c4c6bj" path="res://materials/green.material.res" id="8_bohxo"]
+[ext_resource type="Texture2D" uid="uid://7iexhmj0tp4r" path="res://icons/icon.svg" id="9_plvge"]
+[ext_resource type="Texture2D" uid="uid://ditjphv56nngx" path="res://icons/CollisionShape3D.svg" id="10_ix4b5"]
+[ext_resource type="Texture2D" uid="uid://bw8mgeu73qc11" path="res://icons/Area3D.svg" id="11_wahxs"]
+[ext_resource type="Texture2D" uid="uid://eiwyxjubjx0a" path="res://icons/RigidBody3D.svg" id="11_wgb1f"]
+[ext_resource type="Texture2D" uid="uid://3e8f381mpipr" path="res://icons/CharacterBody3D.svg" id="12_erlib"]
 
 [sub_resource type="Environment" id="Environment_uqedi"]
 tonemap_mode = 2
+ssao_enabled = true
+ssao_horizon = 0.23
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_atgtp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ok5ri"]
 size = Vector3(1, 2, 0.293)
@@ -23,45 +36,55 @@ rings = 16
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_cdvw5"]
 radial_segments = 32
 
+[sub_resource type="TorusMesh" id="TorusMesh_kpbrc"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_8u5qh"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ofivg"]
+size = Vector3(1, 2, 0.2)
 
 [node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_uqedi")
+camera_attributes = SubResource("CameraAttributesPractical_atgtp")
 
 [node name="Player" parent="." instance=ExtResource("2_2mxhg")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -12, 1.52229, 9)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 1.02229, -10)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="RoomBlue" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="RoomBlue"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 7, 1)
+material_override = ExtResource("2_y7i87")
 use_collision = true
 size = Vector3(46, 18, 36)
-material = ExtResource("3_by6w8")
+material = ExtResource("2_y7i87")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="RoomBlue/CSGBox3D"]
 operation = 2
 size = Vector3(40, 14, 30)
-material = ExtResource("3_by6w8")
+material = ExtResource("2_y7i87")
 
-[node name="Door" type="CSGBox3D" parent="CSGBox3D"]
+[node name="Door" type="CSGBox3D" parent="RoomBlue/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -4, 0)
 operation = 2
 size = Vector3(8, 6, 6)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="RoomBlue"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10.1, -4.80825e-08)
 light_energy = 4.0
 shadow_enabled = true
 omni_range = 50.0
 
-[node name="PanelIntro" parent="." instance=ExtResource("3_4e1ub")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, 0.1, 14)
+[node name="PanelIntro" parent="RoomBlue" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 0.1, -13)
+metadata/_edit_group_ = true
 
-[node name="Sprite3D" parent="PanelIntro" index="1"]
+[node name="Sprite3D" parent="RoomBlue/PanelIntro" index="1"]
 visible = false
 
-[node name="Text" parent="PanelIntro" index="2"]
+[node name="Text" parent="RoomBlue/PanelIntro" index="2"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.200002, 3.2, -1.8)
 text = "WELCOME TO GODOT 4!
 
@@ -71,170 +94,311 @@ It is intended to be used alonside the editor, so please click on the objects in
 
 Have fun!"
 
-[node name="TutoMesh" type="Node3D" parent="."]
+[node name="TutoMesh" type="Node3D" parent="RoomBlue"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -1, -2, 2)
 
-[node name="PanelMesh" parent="TutoMesh" instance=ExtResource("3_4e1ub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, -1.19209e-07)
+[node name="PanelMesh" parent="RoomBlue/TutoMesh" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -5)
+metadata/_edit_group_ = true
 
-[node name="Panel2" parent="TutoMesh/PanelMesh/Geometry" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
-
-[node name="Sprite3D" parent="TutoMesh/PanelMesh" index="1"]
+[node name="Sprite3D" parent="RoomBlue/TutoMesh/PanelMesh" index="1"]
 texture = ExtResource("4_nxeen")
 
-[node name="NodeLabel" parent="TutoMesh/PanelMesh/Sprite3D" index="0"]
+[node name="NodeLabel" parent="RoomBlue/TutoMesh/PanelMesh/Sprite3D" index="0"]
 text = "Mesh3D"
 
-[node name="Text" parent="TutoMesh/PanelMesh" index="2"]
+[node name="Text" parent="RoomBlue/TutoMesh/PanelMesh" index="2"]
 transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
-text = "3D objects are stored in Mesh3D resources. Specialized Mesh3D allow to build simple meshes, like BoxMesh, CapsuleMesh and SphereMesh. More complex meshes need to be imported from 3D applications, in GLTF format preferably."
+text = "3D objects are stored in Mesh3D resources. 
+
+Specialized Mesh3D allow to build simple meshes, like BoxMesh, CapsuleMesh and SphereMesh.
+
+More complex meshes need to be imported from 3D applications."
 width = 680.0
 
-[node name="MeshBox" type="MeshInstance3D" parent="TutoMesh"]
-transform = Transform3D(-0.491988, 0, -0.868736, 0, 1, 0, 0.868736, 0, -0.491988, 4, 3.95675, -3)
-mesh = SubResource("BoxMesh_ok5ri")
+[node name="DisplayBox" parent="RoomBlue/TutoMesh" instance=ExtResource("5_qcw75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -13)
+metadata/_edit_group_ = true
 
-[node name="MeshQuad" type="MeshInstance3D" parent="TutoMesh"]
-transform = Transform3D(-0.741952, 0, -0.670716, 0, 1, 0, 0.670716, 0, -0.741952, 4, 3.55675, 6)
-mesh = SubResource("QuadMesh_0djq8")
-
-[node name="MeshSphere" type="MeshInstance3D" parent="TutoMesh"]
-transform = Transform3D(-0.491988, 0, -0.868736, 0, 1, 0, 0.868736, 0, -0.491988, 4, 3.25675, 4)
-mesh = SubResource("SphereMesh_bgh5i")
-
-[node name="MeshCapsule" type="MeshInstance3D" parent="TutoMesh"]
-transform = Transform3D(0.899489, 0, 0.433161, 0, 1, 0, -0.433161, 0, 0.899489, 3.99999, 3.75675, -5)
-mesh = SubResource("CapsuleMesh_cdvw5")
-
-[node name="DisplayCube" parent="TutoMesh" instance=ExtResource("5_qcw75")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -3)
-
-[node name="Node3D" parent="TutoMesh/DisplayCube" index="0"]
+[node name="Node3D" parent="RoomBlue/TutoMesh/DisplayBox" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
-[node name="ItemSpot" parent="TutoMesh/DisplayCube/Node3D" index="0"]
-transform = Transform3D(-0.491988, 0, -0.868736, 0, 1, 0, 0.868736, 0, -0.491988, 0, 0.156752, 0)
+[node name="ItemSpot" parent="RoomBlue/TutoMesh/DisplayBox/Node3D" index="0"]
+transform = Transform3D(0.492462, 0, -0.861834, 0, 1, 0, 0.861834, 0, 0.492462, 0, 0.165424, 0)
 remote_path = NodePath("../../../MeshBox")
 
-[node name="DisplayQuad" parent="TutoMesh" instance=ExtResource("5_qcw75")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 6)
+[node name="MeshBox" type="MeshInstance3D" parent="RoomBlue/TutoMesh"]
+transform = Transform3D(0.492462, 0, -0.861834, 0, 1, 0, 0.861834, 0, 0.492462, 4, 3.96542, -13)
+material_override = ExtResource("5_tb2ik")
+mesh = SubResource("BoxMesh_ok5ri")
 
-[node name="Node3D" parent="TutoMesh/DisplayQuad" index="0"]
+[node name="DisplayQuad" parent="RoomBlue/TutoMesh" instance=ExtResource("5_qcw75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 9)
+metadata/_edit_group_ = true
+
+[node name="Node3D" parent="RoomBlue/TutoMesh/DisplayQuad" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 
-[node name="ItemSpot" parent="TutoMesh/DisplayQuad/Node3D" index="0"]
-transform = Transform3D(-0.741952, 0, -0.670716, 0, 1, 0, 0.670716, 0, -0.741952, 0, 0.156752, 0)
+[node name="ItemSpot" parent="RoomBlue/TutoMesh/DisplayQuad/Node3D" index="0"]
+transform = Transform3D(0.494159, 0, 0.877487, 0, 1, 0, -0.877487, 0, 0.494159, 0, 0.165424, 0)
 remote_path = NodePath("../../../MeshQuad")
 rotation_speed = 1.718
 
-[node name="DisplaySphere" parent="TutoMesh" instance=ExtResource("5_qcw75")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 4)
+[node name="MeshQuad" type="MeshInstance3D" parent="RoomBlue/TutoMesh"]
+transform = Transform3D(0.494159, 0, 0.877487, 0, 1, 0, -0.877487, 0, 0.494159, 4, 3.56542, 9)
+material_override = ExtResource("5_tb2ik")
+mesh = SubResource("QuadMesh_0djq8")
 
-[node name="ItemSpot" parent="TutoMesh/DisplaySphere/Node3D" index="0"]
-transform = Transform3D(-0.491988, 0, -0.868736, 0, 1, 0, 0.868736, 0, -0.491988, 0, 0.156752, 0)
+[node name="DisplaySphere" parent="RoomBlue/TutoMesh" instance=ExtResource("5_qcw75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -10)
+metadata/_edit_group_ = true
+
+[node name="ItemSpot" parent="RoomBlue/TutoMesh/DisplaySphere/Node3D" index="0"]
+transform = Transform3D(0.492462, 0, -0.861834, 0, 1, 0, 0.861834, 0, 0.492462, 0, 0.165424, 0)
 remote_path = NodePath("../../../MeshSphere")
 
-[node name="DisplayCapsule" parent="TutoMesh" instance=ExtResource("5_qcw75")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.99999, 3, -5)
+[node name="MeshSphere" type="MeshInstance3D" parent="RoomBlue/TutoMesh"]
+transform = Transform3D(0.492462, 0, -0.861834, 0, 1, 0, 0.861834, 0, 0.492462, 4, 3.26542, -10)
+material_override = ExtResource("5_tb2ik")
+mesh = SubResource("SphereMesh_bgh5i")
 
-[node name="Node3D" parent="TutoMesh/DisplayCapsule" index="0"]
+[node name="DisplayCapsule" parent="RoomBlue/TutoMesh" instance=ExtResource("5_qcw75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.99999, 3, -1.3)
+metadata/_edit_group_ = true
+
+[node name="Node3D" parent="RoomBlue/TutoMesh/DisplayCapsule" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
-[node name="ItemSpot" parent="TutoMesh/DisplayCapsule/Node3D" index="0"]
-transform = Transform3D(0.899489, 0, 0.433161, 0, 1, 0, -0.433161, 0, 0.899489, 0, 0.156752, 0)
+[node name="ItemSpot" parent="RoomBlue/TutoMesh/DisplayCapsule/Node3D" index="0"]
+transform = Transform3D(0.0868007, 0, 0.988753, 0, 1, 0, -0.988753, 0, 0.0868007, 0, 0.165424, 0)
 remote_path = NodePath("../../../MeshCapsule")
 
-[node name="TutoNode3D" type="Node3D" parent="."]
+[node name="MeshCapsule" type="MeshInstance3D" parent="RoomBlue/TutoMesh"]
+transform = Transform3D(0.0868007, 0, 0.988753, 0, 1, 0, -0.988753, 0, 0.0868007, 3.99999, 3.76542, -1.3)
+material_override = ExtResource("5_tb2ik")
+mesh = SubResource("CapsuleMesh_cdvw5")
+
+[node name="DisplayTorus" parent="RoomBlue/TutoMesh" instance=ExtResource("5_qcw75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.99999, 3, 1.5)
+metadata/_edit_group_ = true
+
+[node name="Node3D" parent="RoomBlue/TutoMesh/DisplayTorus" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="ItemSpot" parent="RoomBlue/TutoMesh/DisplayTorus/Node3D" index="0"]
+transform = Transform3D(0.828415, 0.386535, 0.389201, -0.537785, 0.707107, 0.451789, -0.100558, -0.59146, 0.79369, 0, 0.165424, 0)
+remote_path = NodePath("../../../MeshTorus")
+
+[node name="MeshTorus" type="MeshInstance3D" parent="RoomBlue/TutoMesh"]
+transform = Transform3D(0.828415, 0.386535, 0.389201, -0.537785, 0.707107, 0.451789, -0.100558, -0.59146, 0.79369, 3.99999, 3.76542, 1.5)
+material_override = ExtResource("5_tb2ik")
+mesh = SubResource("TorusMesh_kpbrc")
+
+[node name="TutoNode3D" type="Node3D" parent="RoomBlue"]
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 21, 0, -12)
 
-[node name="PanelNode3D" parent="TutoNode3D" instance=ExtResource("3_4e1ub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+[node name="PanelNode3D" parent="RoomBlue/TutoNode3D" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+metadata/_edit_group_ = true
 
-[node name="Panel2" parent="TutoNode3D/PanelNode3D/Geometry" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
-
-[node name="Sprite3D" parent="TutoNode3D/PanelNode3D" index="1"]
+[node name="Sprite3D" parent="RoomBlue/TutoNode3D/PanelNode3D" index="1"]
 texture = ExtResource("7_5s555")
 
-[node name="NodeLabel" parent="TutoNode3D/PanelNode3D/Sprite3D" index="0"]
+[node name="NodeLabel" parent="RoomBlue/TutoNode3D/PanelNode3D/Sprite3D" index="0"]
 text = "Node3D"
 
-[node name="Text" parent="TutoNode3D/PanelNode3D" index="2"]
+[node name="Text" parent="RoomBlue/TutoNode3D/PanelNode3D" index="2"]
 transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
-text = "The basic 3d node, it allows to group nodes and position them in 3D space. The position of the 3D node will determine the centre of rotation of all the children, so it can be used as a pivot point."
+text = "The basic 3d node, it allows to group nodes and position them in 3D space.
 
-[node name="TutoMeshInstance" type="Node3D" parent="."]
+A node can be used to set the pivot point of the children, like this rotating door example."
+
+[node name="TutoMeshInstance" type="Node3D" parent="RoomBlue"]
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 15, -2, -7)
 
-[node name="Node3D" type="Node3D" parent="TutoMeshInstance"]
+[node name="Node3D" type="Node3D" parent="RoomBlue/TutoMeshInstance"]
 
-[node name="Node3D" type="Node3D" parent="TutoMeshInstance/Node3D"]
+[node name="Group" type="Node3D" parent="RoomBlue/TutoMeshInstance/Node3D"]
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RoomBlue/TutoMeshInstance/Node3D/Group"]
 transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 3.49623, 2.5, -5.16403)
+material_override = ExtResource("8_8amnq")
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomBlue/TutoMeshInstance/Node3D/Group"]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 3.08725, 2.5, -3.79435)
+material_override = ExtResource("8_8amnq")
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="RoomBlue/TutoMeshInstance/Node3D/Group"]
 transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 2.99759, 3.5, -4.61886)
+material_override = ExtResource("8_8amnq")
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RoomBlue/TutoMeshInstance/Node3D/Group"]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 2.12132, 2.5, -4.94975)
+material_override = ExtResource("8_8amnq")
 mesh = SubResource("BoxMesh_8u5qh")
 skeleton = NodePath("../../..")
 
-[node name="Node3D2" type="Node3D" parent="TutoMeshInstance/Node3D"]
-transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 1.5, 0.0999999, 2.7)
+[node name="PivotTuto" type="Node3D" parent="RoomBlue/TutoMeshInstance/Node3D"]
+transform = Transform3D(-5.24537e-08, 0, -1.2, 0, 1.2, 0, 1.2, 0, -5.24537e-08, 6, 2, 3)
+metadata/_edit_group_ = true
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D2"]
-transform = Transform3D(-1.47224, 0, -0.85, 0, 1.7, 0, 0.85, 0, -1.47224, 3.21815, 2.825, 1.06964)
-mesh = SubResource("BoxMesh_8u5qh")
-skeleton = NodePath("../../..")
+[node name="Pivot" type="Node3D" parent="RoomBlue/TutoMeshInstance/Node3D/PivotTuto"]
+transform = Transform3D(-0.894736, 0, 0.446404, 0, 1, 0, -0.446404, 0, -0.894736, 0.9, 0, 0)
+script = ExtResource("8_32grd")
+rotation_speed = -0.04
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D2"]
-transform = Transform3D(-1.20208, 0, -1.20208, 0, 1.7, 0, 1.20208, 0, -1.20208, 1.4518, 2.825, 2.73851)
-mesh = SubResource("BoxMesh_8u5qh")
-skeleton = NodePath("../../..")
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RoomBlue/TutoMeshInstance/Node3D/PivotTuto/Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.400001, 1, 0)
+material_override = ExtResource("8_8amnq")
+mesh = SubResource("BoxMesh_ofivg")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D2"]
-transform = Transform3D(1.19209e-07, 0, 1.7, 0, 1.7, 0, -1.7, 0, 1.19209e-07, 2.02063, 4.525, 1.44843)
-mesh = SubResource("BoxMesh_8u5qh")
-skeleton = NodePath("../../..")
+[node name="Pivot2" type="Node3D" parent="RoomBlue/TutoMeshInstance/Node3D/PivotTuto"]
+transform = Transform3D(-0.894737, 0, -0.446408, 0, 1, 0, 0.446408, 0, -0.894737, -0.9, 0, 0)
+script = ExtResource("8_32grd")
+rotation_speed = 0.04
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="TutoMeshInstance/Node3D/Node3D2"]
-transform = Transform3D(0.439992, 0, -1.64207, 0, 1.7, 0, 1.64207, 0, 0.439992, 1.0118, 2.825, 0.216446)
-mesh = SubResource("BoxMesh_8u5qh")
-skeleton = NodePath("../../..")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RoomBlue/TutoMeshInstance/Node3D/PivotTuto/Pivot2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 1, 0)
+material_override = ExtResource("8_8amnq")
+mesh = SubResource("BoxMesh_ofivg")
+skeleton = NodePath("../..")
 
-[node name="PanelMeshInstance" parent="TutoMeshInstance" instance=ExtResource("3_4e1ub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 2)
+[node name="PanelMeshInstance" parent="RoomBlue/TutoMeshInstance" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2, 15)
+metadata/_edit_group_ = true
 
-[node name="Sprite3D" parent="TutoMeshInstance/PanelMeshInstance" index="1"]
+[node name="Sprite3D" parent="RoomBlue/TutoMeshInstance/PanelMeshInstance" index="1"]
 texture = ExtResource("4_5tg15")
 
-[node name="NodeLabel" parent="TutoMeshInstance/PanelMeshInstance/Sprite3D" index="0"]
+[node name="NodeLabel" parent="RoomBlue/TutoMeshInstance/PanelMeshInstance/Sprite3D" index="0"]
 text = "MeshInstance3D"
 
-[node name="Text" parent="TutoMeshInstance/PanelMeshInstance" index="2"]
+[node name="Text" parent="RoomBlue/TutoMeshInstance/PanelMeshInstance" index="2"]
 transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
-text = "To display a Mesh3D in the world, it needs to be assigned to a MeshInstance3D node that sets its position, rotation and scale in the world.
+text = "The MeshInstance3D node displays the Mesh3D in the world. It sets its position, rotation and scale, as well as the material used to draw it.
 
-Note that a mesh instance alone is only visual and has no collision."
+A mesh instance alone is only visual and has no collision."
 width = 680.0
 
-[editable path="PanelIntro"]
-[editable path="TutoMesh/PanelMesh"]
-[editable path="TutoMesh/DisplayCube"]
-[editable path="TutoMesh/DisplayQuad"]
-[editable path="TutoMesh/DisplaySphere"]
-[editable path="TutoMesh/DisplayCapsule"]
-[editable path="TutoNode3D/PanelNode3D"]
-[editable path="TutoMeshInstance/PanelMeshInstance"]
+[node name="Decal" type="Decal" parent="RoomBlue"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2, 8, 16)
+size = Vector3(6.473, 4.028, 6.736)
+texture_albedo = ExtResource("9_plvge")
+
+[node name="RoomGreen" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 0, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="RoomGreen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 7, 1)
+material_override = ExtResource("8_bohxo")
+use_collision = true
+size = Vector3(46, 18, 36)
+material = ExtResource("8_bohxo")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="RoomGreen/CSGBox3D"]
+operation = 2
+size = Vector3(40, 14, 30)
+material = ExtResource("2_y7i87")
+
+[node name="Door" type="CSGBox3D" parent="RoomGreen/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -4, 0)
+operation = 2
+size = Vector3(8, 6, 6)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="RoomGreen"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10.1, -4.80825e-08)
+light_energy = 4.0
+shadow_enabled = true
+omni_range = 50.0
+
+[node name="PanelArea3D" parent="RoomGreen" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 21, 0, -9.5)
+
+[node name="Sprite3D" parent="RoomGreen/PanelArea3D" index="1"]
+texture = ExtResource("11_wahxs")
+
+[node name="NodeLabel" parent="RoomGreen/PanelArea3D/Sprite3D" index="0"]
+text = "Area3D"
+
+[node name="Text" parent="RoomGreen/PanelArea3D" index="2"]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
+text = "Area3D"
+
+[node name="PanelStaticBody3D" parent="RoomGreen" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 4, 0, 5)
+metadata/_edit_group_ = true
+
+[node name="NodeLabel" parent="RoomGreen/PanelStaticBody3D/Sprite3D" index="0"]
+text = "StaticBody3D"
+
+[node name="Text" parent="RoomGreen/PanelStaticBody3D" index="2"]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
+text = "StaticBody3D"
+width = 680.0
+
+[node name="PanelRigidBody3D" parent="RoomGreen" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 21, 0, 3)
+metadata/_edit_group_ = true
+
+[node name="Sprite3D" parent="RoomGreen/PanelRigidBody3D" index="1"]
+texture = ExtResource("11_wgb1f")
+
+[node name="NodeLabel" parent="RoomGreen/PanelRigidBody3D/Sprite3D" index="0"]
+text = "RigidBody3D"
+
+[node name="Text" parent="RoomGreen/PanelRigidBody3D" index="2"]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
+text = "RigidBody3D"
+width = 680.0
+
+[node name="PanelCharacterBody3D" parent="RoomGreen" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 21, 0, 8)
+metadata/_edit_group_ = true
+
+[node name="Sprite3D" parent="RoomGreen/PanelCharacterBody3D" index="1"]
+texture = ExtResource("12_erlib")
+
+[node name="NodeLabel" parent="RoomGreen/PanelCharacterBody3D/Sprite3D" index="0"]
+text = "CharacterBody3D"
+
+[node name="Text" parent="RoomGreen/PanelCharacterBody3D" index="2"]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
+text = "CharacterBody3D"
+width = 680.0
+
+[node name="PanelCollisionShape3D" parent="RoomGreen" instance=ExtResource("3_4e1ub")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 15, 0, -5)
+metadata/_edit_group_ = true
+
+[node name="Sprite3D" parent="RoomGreen/PanelCollisionShape3D" index="1"]
+texture = ExtResource("10_ix4b5")
+
+[node name="NodeLabel" parent="RoomGreen/PanelCollisionShape3D/Sprite3D" index="0"]
+text = "CollisionShape3D"
+
+[node name="Text" parent="RoomGreen/PanelCollisionShape3D" index="2"]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, -0.2, 2.7, -1.8)
+text = "CollisionShape3D"
+width = 680.0
+
+[editable path="RoomBlue/PanelIntro"]
+[editable path="RoomBlue/TutoMesh/PanelMesh"]
+[editable path="RoomBlue/TutoMesh/DisplayBox"]
+[editable path="RoomBlue/TutoMesh/DisplayQuad"]
+[editable path="RoomBlue/TutoMesh/DisplaySphere"]
+[editable path="RoomBlue/TutoMesh/DisplayCapsule"]
+[editable path="RoomBlue/TutoMesh/DisplayTorus"]
+[editable path="RoomBlue/TutoNode3D/PanelNode3D"]
+[editable path="RoomBlue/TutoMeshInstance/PanelMeshInstance"]
+[editable path="RoomGreen/PanelArea3D"]
+[editable path="RoomGreen/PanelStaticBody3D"]
+[editable path="RoomGreen/PanelRigidBody3D"]
+[editable path="RoomGreen/PanelCharacterBody3D"]
+[editable path="RoomGreen/PanelCollisionShape3D"]

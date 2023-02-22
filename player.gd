@@ -1,7 +1,10 @@
 extends CharacterBody3D
 
-@export var speed: = 5.0
+@export var speed_slow: = 5.0
+@export var speed_fast: = 15.0
 @export var jump_velocity: = 4.5
+
+var speed: = speed_slow
 
 const MOUSE_FACTOR = 2000
 const MOUSE_SENSITIVITY = 5
@@ -30,6 +33,12 @@ func _unhandled_input(event):
 		
 		if event.keycode == KEY_ESCAPE:
 			get_tree().quit();
+			
+		elif event.keycode == KEY_SHIFT:
+			if event.pressed:
+				speed = speed_fast
+			else:
+				speed = speed_slow
 
 func _physics_process(delta):
 	# Add the gravity.
